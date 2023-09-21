@@ -1,29 +1,66 @@
-// esta clase está completa, no necesita nada más
-class ProfesionalAsociado {
-	var universidad
+class ProfesionalesAsociados{
+	var property universidad
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	method provinciasDondePuedeTrabajar() = #{"Entre Rios", "Corrientes"}
+	method horariosPorHora() = 3000
+		//method trabjarEnALoSumo3Pronvincias() = true
 	
-	method provinciasDondePuedeTrabajar() { return #{"Entre Ríos", "Corrientes", "Santa Fe"} }
+}
+
+class PofesionalesVinculado{
+	var property universidad
+	method honorarioPorHora() = universidad.CuantosRecomendadosCobrarPorHora()
 	
-	method honorariosPorHora() { return 3000 }
+	method provinciasDondePuedeTrabajar() = universidad.provinciasDondeEsta()
+	
+	//method trabjarEnALoSumo3Pronvincias() = true
+}
+
+class ProfesionalesLibre{
+	var property universidad 
+	var property honorarios
+	var property provinciasDondePuedeTrabajar
+	
+		//method trabjarEnALoSumo3Pronvincias() = provinciasDondePuedeTrabajar.size() <= 3
+	
+}
+
+class Universidad{
+	
+	var cobroRecomendado = 5000
+	var property provinciaDondeEsta
+	
+	method provinciaDondeEsta() 
+	
+	method iniciacion(porc) {
+		cobroRecomendado *= + porc
+	}
+	
+	
 }
 
 
-// a esta clase le faltan métodos
-class ProfesionalVinculado {
-	var universidad
+class Empresa{
+	const profesionales = []
+	var honorariosReferencia
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
-}
-
-
-// a esta clase le faltan atributos y métodos
-class ProfesionalLibre {
-	var universidad
+	method contratar(p){
+		profesionales.add(p)
+		
+		
+	}
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+		
+	
+	method cuantosEstudiaronEn(uni) = profesionales.count{p=>p.universidad() == uni}
+	
+	method profesionalesCaros() = profesionales.filter{p=>p.honorariosPorHora() > honorariosReferencia}
+
+	method universidadesFormadoras() = profesionales.map{p=>p.universidad()}.asSet()
+	
+	method profesionalesMasBaratos() = profesionales.min{p=>p.honorariosPorHora()}
+	
+	method esDeGenteAcotada() = profesionales.all{p=>p.provinciasDondePuedeTrabajar().size()<=3}
+	//method esDeGenteAcotada() = profesionales.all{p=>p.provinciasDondePuedeTrabajar()}
+	
 }
